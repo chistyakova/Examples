@@ -2,15 +2,16 @@
 #include <vector>
 #include <cmath>
 
+using Pixels = std::vector<std::vector<bool>>;
 // базовый класс фигуры---------------------------------------------
 class Figure {
-public:
+public:   
     Figure(unsigned canvasSize){
-        m_pixels = std::vector<std::vector<bool>>(canvasSize, std::vector<bool>(canvasSize, false));
+        m_pixels = Pixels(canvasSize, std::vector<bool>(canvasSize, false));
     }
     virtual ~Figure(){}
 
-    const std::vector<std::vector<bool>>& getPixels() const {
+    const Pixels& getPixels() const {
         return m_pixels;
     }
 protected:
@@ -21,9 +22,9 @@ protected:
 class Circle : public Figure {
 public:
     Circle(int canvasSize) : Figure(canvasSize) {
-        const int R = canvasSize / 2;
+        const int R = canvasSize * 0.5;
         for (int i = 0; i <= R; ++i) {
-            const int j = sqrt(pow(R, 2) - pow(i, 2))+0.5;
+            const int j = static_cast<const int>(sqrt(pow(R, 2) - pow(i, 2))+0.5);
             m_pixels.at(R - i).at(R - j) = true;
             m_pixels.at(R + i - 1).at(R + j - 1) = true;
             m_pixels.at(R - i).at(R + j - 1) = true;
