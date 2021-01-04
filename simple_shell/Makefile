@@ -1,2 +1,2 @@
 shell: main.cpp
-	gcc -o shell main.cpp
+	g++ -o shell main.cpp
